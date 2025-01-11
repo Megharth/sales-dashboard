@@ -1,11 +1,25 @@
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <>
-     
-    </>
-  )
+interface ApiResponse {
+  message: string;
+  data: number[];
 }
 
-export default App
+function App() {
+  const [data, setData] = useState<ApiResponse>();
+
+  const fetchDataFromApi = async () => {
+    const apiResponse = await fetch("/api/data");
+    const apiData = await apiResponse.json();
+    setData(apiData);
+  };
+
+  useEffect(() => {
+    fetchDataFromApi();
+  }, []);
+
+  return <>{data?.message}</>;
+}
+
+export default App;
