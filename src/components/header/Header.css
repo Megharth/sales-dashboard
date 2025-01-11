@@ -1,0 +1,12 @@
+#header {
+    width: 100%;
+    height: 60px;
+    background-color: #052849;
+    display: flex;
+}
+
+#header img {
+    height: 20px;
+    align-self: center;
+    margin-left: 20px;
+}
