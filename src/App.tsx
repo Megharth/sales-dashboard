@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header } from "./components/header";
+import { Header } from "./components/header/Header";
 
 import "./App.css";
 import { ProductPage } from "./components/product-page/ProductPage";
@@ -33,7 +33,8 @@ interface Product {
 
 function App() {
   const [productData, setProductData] = useState<Product[]>();
-  const [currentPage] = useState(0);
+  // This could potentially come from the URL and we can load the product based on the ID
+  const currentPage = 0;
 
   const getProducts = async () => {
     const response = await fetch("/api/data");
