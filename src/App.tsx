@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Header } from "./components/header";
 
 import "./App.css";
+import { ProductPage } from "./components/product-page/ProductPage";
 
 interface Review {
   customer: string;
@@ -9,7 +10,7 @@ interface Review {
   score: number;
 }
 
-interface Sale {
+export interface Sale {
   weekEnding: string;
   retailSales: number;
   wholesaleSales: number;
@@ -31,21 +32,34 @@ interface Product {
 }
 
 function App() {
-  const [data, setData] = useState<Product[]>();
+  const [productData, setProductData] = useState<Product[]>();
+  const [currentPage] = useState(0);
 
-  const fetchDataFromApi = async () => {
-    const apiResponse = await fetch("/api/data");
-    const apiData = await apiResponse.json();
-    setData(apiData);
+  const getProducts = async () => {
+    const response = await fetch("/api/data");
+    const data = await response.json();
+    setProductData(data);
   };
 
   useEffect(() => {
-    fetchDataFromApi();
+    getProducts();
   }, []);
+
+  const currentProduct = productData?.[currentPage];
 
   return (
     <>
       <Header />
+      {currentProduct && (
+        <ProductPage
+          id={currentProduct.id}
+          image={currentProduct.image}
+          title={currentProduct.title}
+          subtitle={currentProduct.subtitle}
+          tags={currentProduct.tags}
+          sales={currentProduct.sales}
+        />
+      )}
     </>
   );
 }

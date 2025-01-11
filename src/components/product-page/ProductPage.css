@@ -1,0 +1,6 @@
+.productPage {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    column-gap: 10px;
+}
